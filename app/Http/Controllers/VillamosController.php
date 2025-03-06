@@ -45,4 +45,20 @@ class VillamosController extends Controller
                                     ->get()
         ]);
     }
+
+    public function Kereses(Request $req){
+        $req->validate([
+            'hiba'      => 'required|min:4'
+        ],[
+            'hiba.required' =>  'Nem lehet üres a keresőmező!',
+            'hiba.min'      =>  'Legalább 4 karaktert adj meg!'
+
+        ]);
+
+        return view('kereses',[
+            'result'    =>  megallo::where('nev', 'LIKE', '%'.$req->hiba.'%')
+                                        ->get()
+        ]);
+
+    }
 }
